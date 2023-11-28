@@ -1,0 +1,14 @@
+PUT http://localhost:5000/users/6564a3b7acc361fb8d18a383 
+Content-Type: application/json
+
+{
+  "fullName": "Sarah Hassan",
+  "email": "sarah.hassan@example.com",
+  "password": "strongpassword456",
+  "phoneNumber": "+9876543210",
+  "city": "Alexandria",
+  "address": "456 Oak Avenue",
+  "isAdmin": true,
+  "isDesigner": false
+}
+      

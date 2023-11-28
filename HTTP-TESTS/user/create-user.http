@@ -1,0 +1,13 @@
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+  "fullName": "Khaled rahim",
+  "email": "khaled.ahim@example.com",
+  "password": "securepass123",
+  "phoneNumber": "+1122113344",
+  "city": "Aswan",
+  "address": "654 Maple Street",
+  "isAdmin": true,
+  "isDesigner": true
+}

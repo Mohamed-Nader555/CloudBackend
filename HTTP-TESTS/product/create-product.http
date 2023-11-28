@@ -1,0 +1,12 @@
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+  "name": "Smartwatch",
+  "color": "Silver",
+  "category": "Electronics",
+  "subCategory": "Wearables",
+  "price": 129.99,
+  "img": "https://example.com/smartwatch.jpg",
+  "desc": "A sleek and feature-rich smartwatch to stay connected on the go."
+}

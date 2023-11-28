@@ -1,0 +1,13 @@
+POST http://localhost:5000/auth/signup
+Content-Type: application/json
+
+{
+  "fullName": "Mohamed Nader",
+  "email": "mohamed.mohamed@example.com",
+  "password": "mohamed00",
+  "phoneNumber": "+1122113344",
+  "city": "Aswan",
+  "address": "654 Maple Street",
+  "isAdmin": true,
+  "isDesigner": false
+}
