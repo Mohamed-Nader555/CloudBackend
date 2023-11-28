@@ -1,28 +1,27 @@
-const express = require('express');
-const dotenv = require('dotenv');
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
 
+const productsRouter = require("./routes/products");
+const usersRouter = require("./routes/users");
+const authRouter = require("./routes/auth");
 
-const productsRouter = require('./routes/products');
-const usersRouter = require('./routes/users');
-const authRouter = require('./routes/auth');
-
-
-const initiateDBConnection = require('./config/db');
+const initiateDBConnection = require("./config/db");
 dotenv.config({
-    path: './config/.env'
+  path: "./config/.env",
 });
 
-const PORT = process.env.PORT
-const app = express()
+const PORT = process.env.PORT;
+const app = express();
+app.use(cors());
 app.use(express.json());
 
-app.use('/products', productsRouter);
-app.use('/users', usersRouter);
-app.use('/auth', authRouter);
-
+app.use("/products", productsRouter);
+app.use("/users", usersRouter);
+app.use("/auth", authRouter);
 
 app.listen(PORT, async () => {
-    console.log(`Server is running on port ${PORT}`)
+  console.log(`Server is running on port ${PORT}`);
 
-    await initiateDBConnection();
+  await initiateDBConnection();
 });
