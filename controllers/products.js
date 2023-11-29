@@ -1,6 +1,7 @@
 const { create } = require('../models/products');
 const productsService = require('../services/products');
 
+//fucntion that connect between the route and the service that get all products
 module.exports.getProducts = async (req , res) => {
     try{
         const products = await productsService.findAllProducts();
@@ -83,3 +84,47 @@ module.exports.deleteProduct = async (req, res) => {
         res.status(500).send({ error: "Internal Server Error", err });
     }
 };
+
+
+
+//function to filter products based on price and color
+module.exports.filterProducts = async (req, res) => {
+    const color = req.params.color;
+    const minPrice = parseFloat(req.query.minPrice);
+    const maxPrice = parseFloat(req.query.maxPrice);
+  
+    try {
+      const filteredProducts = await productsService.filterProducts(color, minPrice, maxPrice);
+      res.send({ products: filteredProducts });
+    } catch (err) {
+      console.log('Error in filtering products', err);
+      res.status(500).send({ error: 'Internal Server Error', err });
+    }
+  };
+
+
+  module.exports.filterProducts = async (req, res) => {
+    const category = req.params.category;
+    const subCategory = req.params.subCategory;
+  
+    try {
+      const filteredProducts = await productsService.filterProducts(category, subCategory);
+      res.send({ products: filteredProducts });
+    } catch (err) {
+      console.log('Error in filtering products', err);
+      res.status(500).send({ error: 'Internal Server Error', err });
+    }
+  };
+
+  
+module.exports.filterProductsByCategory = async (req, res) => {
+    const category = req.params.category;
+  
+    try {
+      const filteredProducts = await productsService.filterProductsByCategory(category);
+      res.send({ products: filteredProducts });
+    } catch (err) {
+      console.log('Error in filtering products by category', err);
+      res.status(500).send({ error: 'Internal Server Error', err });
+    }
+  };
