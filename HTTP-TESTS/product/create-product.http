@@ -1,12 +1,13 @@
 POST http://localhost:5000/products
 Content-Type: application/json
 
-{
-  "name": "Smartwatch",
-  "color": "Silver",
-  "category": "Electronics",
-  "subCategory": "Wearables",
-  "price": 129.99,
-  "img": "https://example.com/smartwatch.jpg",
-  "desc": "A sleek and feature-rich smartwatch to stay connected on the go."
-}
+  {
+    "name": "Kids' Pajama Set",
+    "color": "Yellow",
+    "category": "Kids",
+    "subCategory": "Sleepwear",
+    "price": 19.99,
+    "img": "https://www.example.com/kids_pajama_set.jpg",
+    "desc": "Cute and cozy pajama set for kids.",
+    "userRole": "admin"
+  }

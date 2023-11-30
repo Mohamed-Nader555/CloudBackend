@@ -8,7 +8,8 @@ const ProductSchema = new Schema(
       subCategory: { type: String, required: true },
       price: { type: Number, required: true },
       img: { type: String, required: true },
-      desc: { type: String, required: true, }
+      desc: { type: String, required: true },
+      userRole: {type : String, required: true}
     }
   );
 

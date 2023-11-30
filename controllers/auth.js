@@ -61,9 +61,12 @@ module.exports.loginUser = async (req, res) => {
 
 
         const jwt = await authService.generateJWT(user);
-        return res.status(201).send({
+        return res.status(201).send({   
             jwt: jwt,
-            msg: 'Logged in successfully'
+            msg: 'Logged in successfully',
+            email: user.email,
+            admin: user.isAdmin,
+            designer: user.isDesigner
         });
     } catch (err) {
         return res.status(500).send({

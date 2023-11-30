@@ -22,7 +22,8 @@ module.exports.createProduct = async (req,res)=>{
         subCategory: req.body.subCategory,
         price: req.body.price,
         img: req.body.img,
-        desc: req.body.desc
+        desc: req.body.desc,
+        userRole: req.body.userRole
     };
 
     try {
@@ -33,7 +34,7 @@ module.exports.createProduct = async (req,res)=>{
         });
     }catch (err){
         return res.status(500).send({
-            error: err.msg
+            error: err.message
         });
     }
 };
@@ -47,7 +48,8 @@ module.exports.updateProduct = async (req, res) => {
         subCategory: req.body.subCategory,
         price: req.body.price,
         img: req.body.img,
-        desc: req.body.desc
+        desc: req.body.desc,
+        userRole: req.body.userRole
     };
 
     try {
@@ -88,13 +90,13 @@ module.exports.deleteProduct = async (req, res) => {
 
 
 //function to filter products based on price and color
-module.exports.filterProducts = async (req, res) => {
+module.exports.filterProductsByColorAndPrice = async (req, res) => {
     const color = req.params.color;
     const minPrice = parseFloat(req.query.minPrice);
     const maxPrice = parseFloat(req.query.maxPrice);
   
     try {
-      const filteredProducts = await productsService.filterProducts(color, minPrice, maxPrice);
+      const filteredProducts = await productsService.filterProductsColorPrice(color, minPrice, maxPrice);
       res.send({ products: filteredProducts });
     } catch (err) {
       console.log('Error in filtering products', err);
@@ -103,12 +105,12 @@ module.exports.filterProducts = async (req, res) => {
   };
 
 
-  module.exports.filterProducts = async (req, res) => {
+  module.exports.filterProductsByCategoryAndSubCategory = async (req, res) => {
     const category = req.params.category;
     const subCategory = req.params.subCategory;
   
     try {
-      const filteredProducts = await productsService.filterProducts(category, subCategory);
+      const filteredProducts = await productsService.filterProductsCategorySubCategory(category, subCategory);
       res.send({ products: filteredProducts });
     } catch (err) {
       console.log('Error in filtering products', err);

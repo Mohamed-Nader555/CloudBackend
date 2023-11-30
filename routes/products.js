@@ -8,11 +8,11 @@ const productsRouter = Router();
 //get all products 
 productsRouter.get('/', productsController.getProducts);
 //get all products based on color and price
-productsRouter.get('/:color?', productsController.filterProducts);
+productsRouter.get('/filter/:color?', productsController.filterProductsByColorAndPrice);
 // get all products based on category
-productsRouter.get('/category/:category', productsController.filterProductsByCategory);
+productsRouter.get('/:category?', productsController.filterProductsByCategory);
 // get all products based on category and sub category
-productsRouter.get('/:category?/:subCategory?', productsController.filterProducts);
+productsRouter.get('/:category?/:subCategory?', productsController.filterProductsByCategoryAndSubCategory);
 
 
 productsRouter.post('/', productsController.createProduct);
