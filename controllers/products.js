@@ -13,8 +13,7 @@ module.exports.getProducts = async (req , res) => {
     
 }
 
-// route handler function to add product 
-module.exports.createProduct = async (req,res)=>{
+module.exports.createProduct = async (req, res) => {
     const productInfo = {
         name: req.body.name,
         color: req.body.color,
@@ -27,17 +26,29 @@ module.exports.createProduct = async (req,res)=>{
     };
 
     try {
+        // Set default status to 'pending'
+        let status = 'pending';
+
+        // Check userRole and update status accordingly
+        if (productInfo.userRole === 'admin') {
+            status = 'approved';
+        }
+
+        // Add status to productInfo
+        productInfo.status = status;
+
         const createdProduct = await productsService.addNewProduct(productInfo);
         return res.status(201).send({
             msg: 'Product created successfully',
             productID: createdProduct._id
         });
-    }catch (err){
+    } catch (err) {
         return res.status(500).send({
             error: err.message
         });
     }
 };
+
 
 module.exports.updateProduct = async (req, res) => {
     const productID = req.params.id;
@@ -49,7 +60,8 @@ module.exports.updateProduct = async (req, res) => {
         price: req.body.price,
         img: req.body.img,
         desc: req.body.desc,
-        userRole: req.body.userRole
+        userRole: req.body.userRole,
+        status: req.body.status
     };
 
     try {
@@ -91,7 +103,7 @@ module.exports.deleteProduct = async (req, res) => {
 
 //function to filter products based on price and color
 module.exports.filterProductsByColorAndPrice = async (req, res) => {
-    const color = req.params.color;
+    const color = req.query.color;
     const minPrice = parseFloat(req.query.minPrice);
     const maxPrice = parseFloat(req.query.maxPrice);
   
@@ -121,7 +133,6 @@ module.exports.filterProductsByColorAndPrice = async (req, res) => {
   
 module.exports.filterProductsByCategory = async (req, res) => {
     const category = req.params.category;
-  
     try {
       const filteredProducts = await productsService.filterProductsByCategory(category);
       res.send({ products: filteredProducts });
@@ -130,3 +141,67 @@ module.exports.filterProductsByCategory = async (req, res) => {
       res.status(500).send({ error: 'Internal Server Error', err });
     }
   };
+
+
+  // Get all products based on category and filter
+module.exports.filterProductsByCategoryAndFilter = async (req, res) => {
+    const category = req.params.category;
+    console.log(category)
+    const color = req.query.color;
+    const minPrice = parseFloat(req.query.minPrice);
+    const maxPrice = parseFloat(req.query.maxPrice);
+  
+    try {
+      const filteredProducts = await productsService.filterProductsByCategoryAndFilter(category, color, minPrice, maxPrice);
+      res.send({ products: filteredProducts });
+    } catch (err) {
+      console.log('Error in filtering products', err);
+      res.status(500).send({ error: 'Internal Server Error', err });
+    }
+  };
+  
+  // Get all products based on category and sub-category and filter
+  module.exports.filterProductsByCategoryAndSubCategoryAndFilter = async (req, res) => {
+    const category = req.params.category;
+    const subCategory = req.params.subCategory;
+    const color = req.query.color;
+    const minPrice = parseFloat(req.query.minPrice);
+    const maxPrice = parseFloat(req.query.maxPrice);
+  
+    try {
+      const filteredProducts = await productsService.filterProductsByCategoryAndSubCategoryAndFilter(category, subCategory, color, minPrice, maxPrice);
+      res.send({ products: filteredProducts });
+    } catch (err) {
+      console.log('Error in filtering products', err);
+      res.status(500).send({ error: 'Internal Server Error', err });
+    }
+  };
+
+
+  // Get pending products
+module.exports.getPendingProducts = async (req, res) => {
+  try {
+    const pendingProducts = await productsService.getPendingProducts();
+    res.send({ products: pendingProducts });
+  } catch (err) {
+    console.log('Error in getting pending products', err);
+    res.status(500).send({ error: 'Internal Server Error', err });
+  }
+};
+
+
+exports.getProductById = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const product = await productsService.findProductById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    return res.status(200).json(product);
+  } catch (error) {
+    console.error('Error in getProductById controller:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};

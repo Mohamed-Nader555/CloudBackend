@@ -3,11 +3,11 @@ Content-Type: application/json
 
 {
   "fullName": "Mohamed Nader",
-  "email": "mohamed.user@example.com",
-  "password": "mohamed00",
+  "email": "Mohamed.designer@example.com",
+  "password": "mohamed123",
   "phoneNumber": "+1122113344",
-  "city": "Giza",
-  "address": "654 Maple Street",
+  "city": "Cairo",
+  "address": "Giza Haram",
   "isAdmin": false,
-  "isDesigner": false
+  "isDesigner": true
 }

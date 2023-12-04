@@ -9,16 +9,16 @@ module.exports.findAllUsers = async () => {
   }
 };
 
-module.exports.addNewUser = async (userInfo) => {
-  try {
-    const user = new UserModel(userInfo);
-    const createdUser = await user.save();
-    return createdUser;
-  } catch (err) {
-    console.log('Error in adding a new user', err);
-    throw new Error('Could not create user');
-  }
-};
+// module.exports.addNewUser = async (userInfo) => {
+//   try {
+//     const user = new UserModel(userInfo);
+//     const createdUser = await user.save();
+//     return createdUser;
+//   } catch (err) {
+//     console.log('Error in adding a new user', err);
+//     throw new Error('Could not create user');
+//   }
+// };
 
 module.exports.updateUserById = async (userId, userInfo) => {
   try {

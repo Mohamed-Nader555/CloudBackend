@@ -70,7 +70,7 @@ module.exports.loginUser = async (req, res) => {
         });
     } catch (err) {
         return res.status(500).send({
-            error: err.message || 'Could not create user',
+            error: err.message || 'Cannot Login, There is an error ',
         });
     }
 };

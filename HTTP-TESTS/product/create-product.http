@@ -1,13 +1,13 @@
 POST http://localhost:5000/products
 Content-Type: application/json
 
-  {
+{
     "name": "Kids' Pajama Set",
-    "color": "Yellow",
-    "category": "Kids",
-    "subCategory": "Sleepwear",
+    "color": "yellow",
+    "category": "kids",
+    "subCategory": "sleepwear",
     "price": 19.99,
     "img": "https://www.example.com/kids_pajama_set.jpg",
     "desc": "Cute and cozy pajama set for kids.",
-    "userRole": "admin"
+    "userRole": "designer"
   }

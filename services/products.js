@@ -42,7 +42,8 @@ module.exports.updateProductById = async (productId, productInfo) => {
       price: productInfo.price,
       img: productInfo.img,
       desc: productInfo.desc,
-      userRole: productInfo.userRole
+      userRole: productInfo.userRole,
+      status: productInfo.status
     }, { new: true });
     return updatedProduct;
   } catch (err) {
@@ -120,12 +121,83 @@ module.exports.filterProductsByCategory = async (category) => {
   }
 };
 
-// module.exports.findProductById = async (productId) => {
-//     try {
-//         const product = await ProductModel.findById(productId);
-//         return product;
-//     } catch (err) {
-//         console.log("Error in finding product by id");
-//         throw new Error('Could not find product');
-//     }
-// };
+
+// Service to get products based on category and filter
+module.exports.filterProductsByCategoryAndFilter = async (category, color, minPrice, maxPrice) => {
+  try {
+    let filter = { category };
+
+    if (color) {
+      filter.color = color;
+    }
+
+    if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+      filter.price = { $gte: parseFloat(minPrice), $lte: parseFloat(maxPrice) };
+    } else if (!isNaN(minPrice)) {
+      filter.price = { $gte: parseFloat(minPrice) };
+    } else if (!isNaN(maxPrice)) {
+      filter.price = { $lte: parseFloat(maxPrice) };
+    }
+
+    const filteredProducts = await ProductModel.find(filter);
+    return filteredProducts;
+  } catch (err) {
+    console.log('Error in filtering products', err);
+    throw new Error('Could not filter products');
+  }
+};
+
+// Service to get products based on category, sub-category, and filter
+module.exports.filterProductsByCategoryAndSubCategoryAndFilter = async (category, subCategory, color, minPrice, maxPrice) => {
+  try {
+    let filter = { category };
+
+    if (subCategory) {
+      filter.subCategory = subCategory;
+    }
+
+    if (color) {
+      filter.color = color;
+    }
+
+    if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+      filter.price = { $gte: parseFloat(minPrice), $lte: parseFloat(maxPrice) };
+    } else if (!isNaN(minPrice)) {
+      filter.price = { $gte: parseFloat(minPrice) };
+    } else if (!isNaN(maxPrice)) {
+      filter.price = { $lte: parseFloat(maxPrice) };
+    }
+
+    const filteredProducts = await ProductModel.find(filter);
+    return filteredProducts;
+  } catch (err) {
+    console.log('Error in filtering products', err);
+    throw new Error('Could not filter products');
+  }
+};
+
+
+module.exports.getPendingProducts = async () => {
+  try {
+    const pendingProducts = await ProductModel.find({ status: 'pending' });
+    return pendingProducts;
+  } catch (err) {
+    console.log('Error in getting pending products', err);
+    throw new Error('Could not get pending products');
+  }
+};
+
+exports.findProductById = async (productId) => {
+  try {
+    const product = await ProductModel.findById(productId);
+
+    if (!product) {
+      throw new Error('Product not found');
+    }
+
+    return product;
+  } catch (error) {
+    console.error('Error in findProductById service:', error);
+    throw new Error('Could not find product');
+  }
+};

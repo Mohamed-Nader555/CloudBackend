@@ -9,7 +9,8 @@ const ProductSchema = new Schema(
       price: { type: Number, required: true },
       img: { type: String, required: true },
       desc: { type: String, required: true },
-      userRole: {type : String, required: true}
+      userRole: {type : String, required: true},
+      status: {type : String, required: true}
     }
   );
 

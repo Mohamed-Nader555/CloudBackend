@@ -1,14 +1,8 @@
-PUT http://localhost:5000/products/65648563ab557da68597cd11 
+PUT http://localhost:5000/products/656d947a70a74aa64fa669fc 
 Content-Type: application/json
 
 {
-     "name": "Product 2",
-     "color": "Blue",
-     "category": "Women",
-     "subCategory": "Jackets&Shirts",
-     "price": 25.22,
-     "img": "This is product img",
-     "desc": "This is product two"
-      }
+     "status": "approved"
+ }
 
       

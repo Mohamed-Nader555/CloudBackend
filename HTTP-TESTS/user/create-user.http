@@ -1,13 +1,15 @@
-POST http://localhost:5000/users
-Content-Type: application/json
+# POST http://localhost:5000/users
+# Content-Type: application/json
 
-{
-  "fullName": "Khaled rahim",
-  "email": "khaled.ahim@example.com",
-  "password": "securepass123",
-  "phoneNumber": "+1122113344",
-  "city": "Aswan",
-  "address": "654 Maple Street",
-  "isAdmin": true,
-  "isDesigner": true
-}
+# {
+#   "fullName": "Mohamed Nader",
+#   "email": "Mohamed.useddr@example.com",
+#   "password": "mohamed123",
+#   "phoneNumber": "+1122113344",
+#   "city": "Cairo",
+#   "address": "Giza Haram",
+#   "isAdmin": false,
+#   "isDesigner": false
+# }
+
+#Do not use it, use the SignUp function from the auth service

@@ -1,2 +1,2 @@
-GET http://localhost:5000/products/filter?minPrice=15&maxPrice=30
+GET http://localhost:5000/products/filter/Men?color=black
 
