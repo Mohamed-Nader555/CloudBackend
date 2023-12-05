@@ -20,9 +20,9 @@ module.exports.createProduct = async (req, res) => {
         category: req.body.category,
         subCategory: req.body.subCategory,
         price: req.body.price,
-        img: req.body.img,
         desc: req.body.desc,
-        userRole: req.body.userRole
+        userRole: req.body.userRole,
+        img: req.file.buffer.toString('base64')
     };
 
     try {

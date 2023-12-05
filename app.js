@@ -6,6 +6,7 @@ const productsRouter = require("./routes/products");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const cartRouter = require("./routes/cart");
+const orderRouter = require('./routes/orders');
 
 const initiateDBConnection = require("./config/db");
 dotenv.config({
@@ -21,6 +22,9 @@ app.use("/products", productsRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
+app.use('/orders', orderRouter);
+app.use('/uploads', express.static('uploads'));
+
 
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);

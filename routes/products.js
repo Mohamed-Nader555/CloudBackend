@@ -1,15 +1,18 @@
 const {Router} = require('express');
-
+const multer = require('multer');
 const productsController = require('../controllers/products');
 
 const productsRouter = Router();
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 //GETS
 //get all products 
 productsRouter.get('/', productsController.getProducts);
 
 //getBy Id
-productsRouter.get('/:productId', productsController.getProductById);
+productsRouter.get('/product/:productId', productsController.getProductById);
 
 //get all products based on color and price
 productsRouter.get('/filter', productsController.filterProductsByColorAndPrice);
@@ -20,19 +23,23 @@ productsRouter.get('/filter/:category?', productsController.filterProductsByCate
 // get all products based on category and sub category and filter
 productsRouter.get('/filter/:category?/:subCategory?', productsController.filterProductsByCategoryAndSubCategoryAndFilter);
 
+//get pending products
+productsRouter.get('/pending', productsController.getPendingProducts);
+
 // get all products based on category
 productsRouter.get('/:category?', productsController.filterProductsByCategory);
 
 // get all products based on category and sub category
 productsRouter.get('/:category?/:subCategory?', productsController.filterProductsByCategoryAndSubCategory);
 
-//get pending products
-productsRouter.get('/get-pending', productsController.getPendingProducts);
 
 
 
 
-productsRouter.post('/', productsController.createProduct);
+
+// productsRouter.post('/', productsController.createProduct);
+
+productsRouter.post('/', upload.single('img'), productsController.createProduct);
 
 productsRouter.put('/:id', productsController.updateProduct);
 

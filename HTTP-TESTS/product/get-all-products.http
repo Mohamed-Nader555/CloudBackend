@@ -1,1 +1,10 @@
-GET http://localhost:5000/products/get-pending
+#GET http://localhost:5000/products/product/656df5fc6be5e6268cda273d
+
+GET http://localhost:5000/products/
+
+#GET http://localhost:5000/products/pending
+
+
+#GET http://localhost:5000/products/filter/women?color=red&minPrice=5&maxPrice=30
+
+

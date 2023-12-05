@@ -15,7 +15,7 @@ module.exports.getCartByUserId = async (userId) => {
   }
 };
 
-module.exports.addToCart = async (userId, productId, quantity) => {
+module.exports.addToCart = async (userId, productId, quantity, color, text, design) => {
   try {
     let cart = await CartModel.findOne({ userId });
 
@@ -28,9 +28,12 @@ module.exports.addToCart = async (userId, productId, quantity) => {
     if (existingProductIndex !== -1) {
       // Product already exists in the cart, update quantity
       cart.products[existingProductIndex].quantity += quantity;
+      cart.products[existingProductIndex].color = color;
+      cart.products[existingProductIndex].text = text;
+      cart.products[existingProductIndex].design = design;
     } else {
       // Product does not exist in the cart, add it
-      cart.products.push({ productId, quantity });
+      cart.products.push({ productId, quantity , color , text , design});
     }
 
     const updatedCart = await cart.save();
@@ -41,7 +44,7 @@ module.exports.addToCart = async (userId, productId, quantity) => {
     return populatedCart;
   } catch (err) {
     console.log('Error in adding to cart', err);
-    throw new Error('Could not add to cart');
+    throw new Error(err.message);
   }
 };
 
@@ -82,7 +85,7 @@ module.exports.updateQuantity = async (userId, productId, quantityDelta) => {
 
 
     // Find the product in the cart
-    const productIndex = cart.products.findIndex((product) => product.productId._id.equals(productId));
+    const productIndex = cart.products.findIndex((product) => product._id.equals(productId));
     if (productIndex === -1) {
       throw new Error('Product not found in the cart');
     }

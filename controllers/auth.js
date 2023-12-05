@@ -66,7 +66,8 @@ module.exports.loginUser = async (req, res) => {
             msg: 'Logged in successfully',
             email: user.email,
             admin: user.isAdmin,
-            designer: user.isDesigner
+            designer: user.isDesigner,
+            _id: user._id
         });
     } catch (err) {
         return res.status(500).send({

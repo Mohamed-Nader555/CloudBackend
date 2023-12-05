@@ -13,10 +13,10 @@ module.exports.getCartByUserId = async (req, res) => {
 
 module.exports.addToCart = async (req, res) => {
   const userId = req.params.userId;
-  const { productId, quantity } = req.body;
+  const { productId, quantity, color, text, design } = req.body;
 
   try {
-    const updatedCart = await cartService.addToCart(userId, productId, quantity);
+    const updatedCart = await cartService.addToCart(userId, productId, quantity , color, text, design);
     res.status(200).send({ msg: 'Product added to cart successfully', cart: updatedCart });
   } catch (err) {
     console.log('Error in adding to cart', err);

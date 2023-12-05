@@ -11,7 +11,7 @@ module.exports.findAllProducts = async () => {
 };
 
 //service to add a new product (create product)
-module.exports.addNewProduct = async (productInfo) => {
+module.exports.addNewProduct = async (productInfo ) => {
   try {
 
 
@@ -81,6 +81,8 @@ module.exports.filterProductsColorPrice = async (color, minPrice, maxPrice) => {
       filter.price = { $lte: parseFloat(maxPrice) };
     }
 
+    filter.status = "approved";
+
     const filteredProducts = await ProductModel.find(filter);
     return filteredProducts;
   } catch (err) {
@@ -102,6 +104,9 @@ module.exports.filterProductsCategorySubCategory = async (category, subCategory)
       filter.subCategory = subCategory;
     }
 
+    filter.status = "approved";
+
+
     const filteredProducts = await ProductModel.find(filter);
     return filteredProducts;
   } catch (err) {
@@ -113,7 +118,16 @@ module.exports.filterProductsCategorySubCategory = async (category, subCategory)
 
 module.exports.filterProductsByCategory = async (category) => {
   try {
-    const filteredProducts = await ProductModel.find({ category });
+
+    let filter = {};
+
+    if (category) {
+      filter.category = category;
+    }
+
+    filter.status = "approved";
+    
+    const filteredProducts = await ProductModel.find(filter);
     return filteredProducts;
   } catch (err) {
     console.log('Error in filtering products by category', err);
@@ -130,6 +144,7 @@ module.exports.filterProductsByCategoryAndFilter = async (category, color, minPr
     if (color) {
       filter.color = color;
     }
+    
 
     if (!isNaN(minPrice) && !isNaN(maxPrice)) {
       filter.price = { $gte: parseFloat(minPrice), $lte: parseFloat(maxPrice) };
@@ -138,6 +153,8 @@ module.exports.filterProductsByCategoryAndFilter = async (category, color, minPr
     } else if (!isNaN(maxPrice)) {
       filter.price = { $lte: parseFloat(maxPrice) };
     }
+
+    filter.status = "approved";
 
     const filteredProducts = await ProductModel.find(filter);
     return filteredProducts;
@@ -168,6 +185,8 @@ module.exports.filterProductsByCategoryAndSubCategoryAndFilter = async (category
       filter.price = { $lte: parseFloat(maxPrice) };
     }
 
+    filter.status = "approved";
+
     const filteredProducts = await ProductModel.find(filter);
     return filteredProducts;
   } catch (err) {
@@ -179,7 +198,11 @@ module.exports.filterProductsByCategoryAndSubCategoryAndFilter = async (category
 
 module.exports.getPendingProducts = async () => {
   try {
-    const pendingProducts = await ProductModel.find({ status: 'pending' });
+
+    let filter = {};
+
+    filter.status = "pending";
+    const pendingProducts = await ProductModel.find(filter);
     return pendingProducts;
   } catch (err) {
     console.log('Error in getting pending products', err);

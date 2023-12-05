@@ -2,6 +2,6 @@ POST http://localhost:5000/cart/656db411b7725c99a7bc5fe5/update-quantity
 Content-Type: application/json
 
 {
-  "productId": "656dbbd3a6f6e646a53a9224",
+  "productId": "656f71de81c7742d7e5267ec",
   "quantityDelta": -1
 }
