@@ -9,16 +9,6 @@ module.exports.findAllUsers = async () => {
   }
 };
 
-// module.exports.addNewUser = async (userInfo) => {
-//   try {
-//     const user = new UserModel(userInfo);
-//     const createdUser = await user.save();
-//     return createdUser;
-//   } catch (err) {
-//     console.log('Error in adding a new user', err);
-//     throw new Error('Could not create user');
-//   }
-// };
 
 module.exports.updateUserById = async (userId, userInfo) => {
   try {
@@ -37,5 +27,16 @@ module.exports.deleteUserById = async (userId) => {
   } catch (err) {
     console.log('Error in deleting user by id', err);
     throw new Error('Could not delete user');
+  }
+};
+
+
+module.exports.findUserById = async (userId) => {
+  try {
+    const user = await UserModel.findById(userId);
+    return user;
+  } catch (err) {
+    console.log('Error in finding user by id', err);
+    throw new Error('Could not find user');
   }
 };
