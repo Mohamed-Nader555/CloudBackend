@@ -23,6 +23,8 @@ productsRouter.get('/filter/:category?', productsController.filterProductsByCate
 // get all products based on category and sub category and filter
 productsRouter.get('/filter/:category?/:subCategory?', productsController.filterProductsByCategoryAndSubCategoryAndFilter);
 
+productsRouter.get('/approved-designer-products', productsController.getApprovedDesignerProducts);
+
 //get pending products
 productsRouter.get('/pending', productsController.getPendingProducts);
 
@@ -36,7 +38,6 @@ productsRouter.get('/:category?/:subCategory?', productsController.filterProduct
 
 
 
-
 // productsRouter.post('/', productsController.createProduct);
 
 productsRouter.post('/', upload.single('img'), productsController.createProduct);
@@ -44,5 +45,7 @@ productsRouter.post('/', upload.single('img'), productsController.createProduct)
 productsRouter.put('/:id', productsController.updateProduct);
 
 productsRouter.delete('/:id', productsController.deleteProduct);
+
+
 
 module.exports = productsRouter;

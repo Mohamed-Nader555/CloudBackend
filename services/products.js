@@ -224,3 +224,20 @@ exports.findProductById = async (productId) => {
     throw new Error('Could not find product');
   }
 };
+
+
+
+module.exports.getApprovedDesignerProducts = async () => {
+  try {
+    // Fetch products with userRole designer and status approved
+    const approvedDesignerProducts = await ProductModel.find({
+      userRole: 'designer',
+      status: 'approved',
+    });
+
+    return approvedDesignerProducts;
+  } catch (err) {
+    console.log('Error in fetching approved designer products', err);
+    throw new Error('Could not fetch approved designer products');
+  }
+};

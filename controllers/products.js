@@ -205,3 +205,13 @@ exports.getProductById = async (req, res) => {
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
+exports.getApprovedDesignerProducts = async (req, res) => {
+  try {
+    const approvedDesignerProducts = await productsService.getApprovedDesignerProducts();
+    res.send({ products: approvedDesignerProducts });
+  } catch (err) {
+    console.log('Error in getting approved designer products', err);
+    res.status(500).send({ error: 'Internal Server Error', err });
+  }
+};
